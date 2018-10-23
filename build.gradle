@@ -1,15 +1,33 @@
 plugins {
     id 'java-gradle-plugin'
+	id 'java-library'
+    id 'maven-publish'
 }
 
-group = 'org.samples.greeting'
+group = 'org.samples'
 version = '0.1'
+
+apply plugin: 'maven'
 
 gradlePlugin {
     plugins {
-        greetingsPlugin {
-            id = 'org.samples.greeting'
+        helloWorldPlugin {
+            id = 'org.samples.helloworld'
             implementationClass = 'org.example.greeting.GreetingPlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        helloworld(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "https://raw.github.com/viraj2/gradle-demo-plugin/master"
         }
     }
 }
